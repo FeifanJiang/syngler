@@ -1,0 +1,8 @@
+# VGAE config for sparse-simulation experiment (n=500, r in {2,3,4}).
+hidden1: 32
+hidden2: 16
+epochs: 200
+learning_rate: 0.01
+dropout: 0.0
+device: cuda
+num_samples: 200

@@ -1,0 +1,8 @@
+dataset: yelp
+H: 9                 # rank (hidden dim)
+walk_length: 25
+batch_size: 256
+n_iters: 200
+lr: 0.1
+device: cuda
+num_samples: 200

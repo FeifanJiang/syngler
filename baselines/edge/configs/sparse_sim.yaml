@@ -1,0 +1,11 @@
+# EDGE config for sparse-simulation experiment (n=500, r in {2,3,4}).
+# 20 Monte Carlo replications; each rep retrains EDGE on one input graph.
+arch: TGNN
+epochs: 500
+lr: 1.0e-4
+num_generation: 5      # batch size of model.sample(); total samples = num_generation * sample_batches
+sample_batches: 40
+device: cuda:0
+degree: true           # degree guidance — important; without it EDGE under-generates degree mass
+eval_every: 500
+check_every: 500

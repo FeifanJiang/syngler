@@ -1,0 +1,7 @@
+dataset: dblp
+num_levels: 3
+batch_size: 1
+epochs: 200
+lr: 1.0e-4
+device: cuda:0
+num_samples: 200

@@ -1,0 +1,4 @@
+dataset: cora      # one of: cora, amazon_photo, amazon_computer
+type: async        # sync or async (GraphMaker variants)
+num_samples: 50
+device: cuda:0

@@ -1,0 +1,6 @@
+epochs: 200
+lr: 1.0e-4
+batch_size: 1
+device: cuda:0
+num_samples: 200
+# n must be small (<= ~512 typically) for this baseline due to dense attention
