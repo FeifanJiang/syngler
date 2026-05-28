@@ -1,0 +1,174 @@
+---
+exp_name: higen
+exp_dir: exp/higen
+use_gpu: true
+device: cuda:0
+gpus: [0]
+seed: 1234
+dataset:
+  loader_name: higen_data
+  name: syngler_polblogs_single
+  raw_graphs_path: data/syngler_polblogs_single.pkl
+  num_levels: 2
+  coarsening_alg: SC0
+  level_startFromRoot: false
+  data_path: data/
+  node_order: DFS
+  train_ratio: 0.8
+  dev_ratio: 0.1
+  num_subgraph_batch: 2
+  num_bigraph_batch: 4
+  is_sample_subgraph: true
+  is_overwrite_precompute: false
+  max_num_nodes_all: 1222
+  no_self_edge: last
+  splice_out_inds:
+    2: []
+    3: [1]
+    4: [0, 2]
+    5: [0, 2, 3]
+    6: [0, 2, 3, 4]
+model:
+  name: model_higen
+  dist: mix_multinomial
+  postMixBP: False
+  link_attr_type: diff
+  link_cntx_type: cat72
+  link_cntx_type_bp: cat3
+  LP_model: b10_m12_s1
+  model_selfedge: true
+  is_connected_graph: true
+  num_mix_component: 5
+  is_sym: true
+  max_num_nodes: [1222]
+  hidden_dim: 32
+  embedding_dim: 32
+  num_GNN_layers: 3
+  num_GNN_prop: 1
+  layer_type_gps: CustomGatedGCN+Transformer
+  layers_gps: 2
+  hidden_dim_gps: 8
+  dropout_gps: 0.
+  num_canonical_order: 1
+  dimension_reduce: true
+  has_attention: true
+  edge_weight: 1.0
+  edge_feat_dim: 32
+  has_edge_weight: true
+  gen_completion: NumEdges
+  context_parent: GPSModel
+  context_part: aug
+  node_feat_types: RWSE
+  use_gran_feat: only
+  gnn_aug_part: GATgran
+  shrd_premb_part: true
+  gnn_aug_bipart: GPSModel
+  NLL_avg: adv
+  to_joint_aug_bp: AR
+  node_order: DFS
+posenc_SignNet:
+  enable: False
+  eigen:
+    laplacian_norm: none
+    max_freqs: 4
+    eigvec_norm: L2
+  model: DeepSet
+  dim_pe: 4
+  layers: 1
+  raw_norm_type: none
+  n_heads: 2
+  phi_out_dim: 4
+  phi_hidden_dim: 16
+  post_layers: 1
+  pass_as_var: False
+posenc_LapPE:
+  enable: False
+  eigen:
+    laplacian_norm: none
+    eigvec_norm: L2
+    max_freqs: 4
+  model: DeepSet
+  dim_pe: 4
+  layers: 1
+  n_heads: 2
+  raw_norm_type: none
+  pass_as_var: false
+posenc_StableLapPE:
+  enable: False
+  eigen:
+    laplacian_norm: none
+    eigvec_norm: L2
+    max_freqs: 4
+  model: none
+  raw_norm_type: none
+  pass_as_var: false
+posenc_RWSE:
+  enable: True
+  kernel:
+    times_func: range(1,5)
+  model: Linear
+  layers: 1
+  dim_pe: 4
+  raw_norm_type: BatchNorm
+  pass_as_var: false
+posenc_Cycles:
+  enable: False
+  kernel:
+    times_func: range(3,5)
+  model: Identity
+  layers: 0
+  dim_pe: 0
+  raw_norm_type: none
+  pass_as_var: false
+gt:
+  layer_type: CustomGatedGCN+Transformer
+  layers: 2
+  n_heads: 2
+  dim_hidden: 8
+  dim_inner: 8
+  dropout: 0.
+  attn_dropout: 0.5
+  layer_norm: False
+  batch_norm: True
+  act: relu
+  posenc_EquivStableLapPE_enable: False
+  layers_pre_mp: 0
+pgnn:
+  layers: 2
+  dim_hidden: 8
+  dim_inner: 8
+  dim_out: 8
+  dropout: .1
+  norm: instance
+  act: gelu
+  layers_pre_mp: 0
+train:
+  optimizer: Adam
+  lr_decay: 0.5
+  lr_decay_epoch: [3000, 5000]
+  num_workers: 0
+  max_epoch: 5000
+  batch_size: 1
+  display_iter: 1
+  snapshot_epoch: 100
+  valid_epoch: 50
+  lr: 4.e-4
+  wd: 0.0e-4
+  momentum: 0.9
+  shuffle: true
+  is_resume: false
+  resume_epoch: 5000
+  resume_dir:
+  resume_model: model_snapshot_0000100.pth
+test:
+  batch_size: 1
+  num_workers: 0
+  num_test_gen: 40
+  is_vis: true
+  is_single_plot: false
+  is_test_ER: false
+  num_vis: 20
+  vis_num_row: 5
+  better_vis: true
+  test_model_dir:
+  test_model_name: model_snapshot_0001000.pth

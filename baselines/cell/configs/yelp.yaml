@@ -1,8 +1,11 @@
+# CELL on yelp — config schema consumed by baselines/cell/run.py.
+# Defaults mirror the rebuttal-era CELL invocation.
 dataset: yelp
-H: 9                 # rank (hidden dim)
-walk_length: 25
-batch_size: 256
-n_iters: 200
+rank: null          # auto: 16 (n<=1500), 24 (<=2500), 32 (>2500)
+steps: 400
 lr: 0.1
-device: cuda
+weight_decay: 1.0e-7
+device: auto        # auto | cpu | cuda | cuda:0
 num_samples: 200
+callback_every: 20
+edge_overlap_limit: 0.95

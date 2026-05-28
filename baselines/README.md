@@ -38,9 +38,9 @@ To use a baseline:
 | GRAN        | yes      | Sparse sim (Appendix)    | https://github.com/lrjconan/GRAN (original; we ship SyNGLER fork) |
 | EDGE        | yes      | Sparse sim (Appendix)    | https://github.com/tufts-ml/graph-generation-EDGE (original; we ship SyNGLER fork) |
 | VGAE        | yes      | Sparse sim (main + appx) | (paper's own implementation)                               |
-| CELL        | no       | Real data                | https://github.com/hheidrich/CELL                          |
-| HiGen       | no       | Real data                | https://github.com/Karami-m/HiGen_main                     |
-| LGD         | no       | Real data                | https://github.com/zhouc20/LatentGraphDiffusion            |
+| CELL        | yes      | Real data                | https://github.com/hheidrich/CELL (original; we ship a snapshot) |
+| HiGen       | yes      | Real data                | https://github.com/Karami-m/HiGen_main (original; we ship SyNGLER fork) |
+| LGD         | no       | Real data                | https://github.com/zhouc20/LatentGraphDiffusion (OOMs on n≳1000) |
 | GraphMaker  | no       | Appendix F note          | https://github.com/Graph-COM/GraphMaker                    |
 
 ### Rep counts

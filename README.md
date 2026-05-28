@@ -58,11 +58,14 @@ syngler/                     SyNGLER core (importable as `syngler`)
 
 baselines/                   Runner wrappers + (selectively) bundled source
 ├── README.md                Convention + per-baseline upstream URLs
-├── gran/, edge/             VENDORED: src/ included (SyNGLER-modified
-│                            fork — has custom_pkl loader + real-data branch)
-├── vgae/                    VENDORED: paper's own implementation, src/ included
-└── cell/, higen/, lgd/, graphmaker/
-                             Stubs: clone upstream into src/ to use
+├── gran/, edge/             VENDORED: SyNGLER-modified fork — has custom_pkl
+│                            loader + real-data branch
+├── vgae/                    VENDORED: paper's own implementation
+├── cell/                    VENDORED: upstream snapshot, unmodified
+├── higen/                   VENDORED: SyNGLER-modified fork — adds the
+│                            higen_syngler_*_single configs + a 60× training
+│                            optimization on the per-iter bottleneck
+└── lgd/, graphmaker/        Stubs: clone upstream into src/ to use
 
 data/
 ├── real/<dataset>/generator/   Packaged LSM-fitted adjacency (~40 MB)
@@ -221,17 +224,20 @@ upstream entry script; pass `--r/--seed` for sparse simulation or
 
 | Name        | Used in              | Upstream                                                   |
 |-------------|----------------------|------------------------------------------------------------|
-| **GRAN**    | Sparse sim (appendix)| https://github.com/lrjconan/GRAN                           |
-| **EDGE**    | Sparse sim (appendix)| https://github.com/tufts-ml/graph-generation-EDGE          |
-| **VGAE**    | Main + appendix      | bundled at `baselines/vgae/src/`                           |
-| **CELL**    | Real data (rebuttal) | https://github.com/hheidrich/CELL                          |
-| **HiGen**   | Real data (rebuttal) | https://github.com/Karami-m/HiGen_main                     |
-| **LGD**     | Real data (rebuttal) | https://github.com/zhouc20/LatentGraphDiffusion                           |
+| **GRAN**    | Sparse sim (appendix)| bundled at `baselines/gran/src/` (SyNGLER fork; upstream: https://github.com/lrjconan/GRAN) |
+| **EDGE**    | Sparse sim (appendix)| bundled at `baselines/edge/src/` (SyNGLER fork; upstream: https://github.com/tufts-ml/graph-generation-EDGE) |
+| **VGAE**    | Main + appendix      | bundled at `baselines/vgae/src/` (paper's own implementation) |
+| **CELL**    | Real data (rebuttal) | bundled at `baselines/cell/src/` (upstream: https://github.com/hheidrich/CELL) |
+| **HiGen**   | Real data (rebuttal) | bundled at `baselines/higen/src/` (SyNGLER fork; upstream: https://github.com/Karami-m/HiGen_main) |
+| **LGD**     | Real data (rebuttal) | https://github.com/zhouc20/LatentGraphDiffusion — OOMs on n≳1000, not vendored |
 | **GraphMaker** | Appendix F note   | https://github.com/Graph-COM/GraphMaker                   |
 
-End-to-end smoke tests have been run against GRAN and EDGE
-(`r=2, seed=0`, 200 samples produced). The remaining wrappers track
-their upstream API but have not been re-tested for this release.
+End-to-end smoke tests have been run against GRAN and EDGE on the sparse-sim
+setting (`r=2, seed=0`, 200 samples produced). CELL and HiGen are vendored with
+working runners — both were exercised during the rebuttal real-data
+experiments but have not been re-smoke-tested for this release; runners follow
+the same arguments as those rebuttal invocations. LGD and GraphMaker wrappers
+remain stubs (no `src/`); clone upstream into `baselines/<name>/src/` to use.
 
 ## Known limitations
 

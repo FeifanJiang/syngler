@@ -1,7 +1,4 @@
+# HiGen on polblogs. Driver reads this YAML, then loads the full HiGen-native
+# config at <SRC>/configs/higen_syngler_polblogs_<variant>.yaml.
 dataset: polblogs
-num_levels: 3
-batch_size: 1
-epochs: 200
-lr: 1.0e-4
-device: cuda:0
-num_samples: 200
+variant: single        # 'single' (paper default) or 'single_ml' (multi-level)
