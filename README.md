@@ -92,6 +92,13 @@ python -m pip install -e .
 python -m pip install ForestDiffusion
 ```
 
+`ForestDiffusion` is the XGBoost-based score-diffusion / flow-matching package by
+Jolicoeur-Martineau et al. ([arXiv:2309.09968](https://arxiv.org/abs/2309.09968)),
+maintained at <https://github.com/SamsungSAILMontreal/ForestDiffusion>. SyNG-D
+uses it to fit a generator on the LSM-fitted latents `(Z, α)`; CPU-only by
+construction. If you don't want the dependency, use `syngler.diff.mlp` instead
+(GPU DDPM, torch-only).
+
 Python ≥ 3.9, PyTorch ≥ 2.0. The stock PyTorch wheel supports CUDA
 compute capability up to `sm_90`; on newer GPUs (e.g. `sm_120`) you'll
 see "no kernel image" unless you build PyTorch from source. The bundled
